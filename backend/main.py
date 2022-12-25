@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from transformers import GPT2LMHeadModel , GPT2Tokenizer
 
 class Model():
@@ -9,7 +9,8 @@ class Model():
     
     def input_handler(self, input_text):
         input_ids = self.tokenizer.encode(input_text, return_tensors = 'pt')
-        return self.tokenizer.decode(input_ids[0])
+        self.tokenizer.decode(input_ids[0])
+        return input_ids
 
     def generate_text(self, processed_input):
         output = self.model.generate(processed_input, 
@@ -24,4 +25,11 @@ app = Flask(__name__)
 
 @app.route("/api/generate")
 def generate():
+    model = Model()
+    data = str(request.data)
+    return '.'.join(model.generate_text(model.input_handler(data)).split('.')[:-1])
+
+
     
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5001, debug=True)
