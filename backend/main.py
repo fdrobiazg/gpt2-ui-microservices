@@ -23,11 +23,12 @@ class Model():
 
 app = Flask(__name__)
 
-@app.route("/api/generate")
+@app.route("/api/generate", methods=["GET", "POST"])
 def generate():
     model = Model()
     data = str(request.data)
-    return '.'.join(model.generate_text(model.input_handler(data)).split('.')[:-1])
+    print(data)
+    return '.'.join(model.generate_text(model.input_handler(data)).split('.')[:-1]) + '.'
 
 
     
