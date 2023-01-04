@@ -4,8 +4,9 @@
         <meta charset="utf-8">
         <title>SentenceCompletion</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-        <script defer src="src/index.js" charset="utf-8"></script>
-    </script>
+        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+        <script src="index.js"></script>
+        <!-- <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
 </head>
 <body>
 <section class="section">
@@ -15,14 +16,14 @@
           <h1 class="title">
             AI text generator
           </h1>
-          <input class="input" type="text" placeholder="Enter the text and let the magic begin .." maxlength="50"><br>
+          <input class="input" id="input" type="text" placeholder="Enter the text and let the magic begin .." maxlength="50"><br>
       </div>
     </section>
     <section class="section">
       <div class="container is-fluid">
-        <div class="notification" id="quote">
+        <div class="notification is-hidden" id="text">
         </div>
-        <a class="button is-warning" id="btn">Let's go!</a>
+        <a class="button is-warning" id="btn" onclick="generateText()">Let's go!</a>
       </div>
   </section>
   

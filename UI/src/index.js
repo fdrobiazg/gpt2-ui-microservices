@@ -1,26 +1,15 @@
-var api = "http://127.0.0.1:3250"
+var url = "http://127.0.0.1:3250/api/generateText"
 
-$(document).ready(function() {
-    $("#btn").click(function() {
-        $.ajax({
-            url: api + "/api/generateText",
-            type: "GET",
-            dataType: "text/plain",
-            timeout: 3000,
-            success: function(data) {
-                $("#quote").html("Loading...") 
-                $("#quote").addClass('is-link')
-                $( "#quote" ).html(data + '</br><b>'); 
-            },
-            error: function(xmlhttprequest, textstatus, message) {
-                $("#quote").removeClass('is-link')
-                $("#quote").addClass('is-danger')
-                if(textstatus==="timeout") {
-                    $( "#quote" ).html("got timeout");
-                } else {
-                    $( "#quote" ).html(message);
-                }
-            }
-        })
-    })
-})
+function generateText() {
+    document.getElementById("text").className = "notification";
+    document.getElementById("text").innerHTML = "Loading...";
+    var text = document.getElementById("input").value
+    console.log(text)
+    const Http = new XMLHttpRequest();
+    Http.open("POST", url);
+    Http.send(text);
+    Http.onreadystatechange = (e) => {
+        document.getElementById("text").innerHTML = Http.responseText
+        console.log(Http.responseText)
+    }
+}

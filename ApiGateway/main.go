@@ -20,9 +20,9 @@ func apiStatus(w http.ResponseWriter, r *http.Request) {
 
 func generateText(w http.ResponseWriter, r *http.Request) {
 
-	responseData,err := ioutil.ReadAll(r.Body)
+	responseData, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-    	log.Fatal(err)
+		log.Fatal(err)
 	}
 	responseString := string(responseData)
 	log.Println("RS: ", responseString)
@@ -39,6 +39,11 @@ func generateText(w http.ResponseWriter, r *http.Request) {
 	}
 	sb := string(body)
 	log.Printf(sb)
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "text/plain")
+	w.Write([]byte(sb))
+	return
+
 	// log.Println("2222222")
 
 	// tr := &http.Transport{
