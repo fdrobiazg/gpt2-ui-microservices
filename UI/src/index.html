@@ -6,7 +6,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
         <script src="index.js"></script>
-        <!-- <script defer src="https://pyscript.net/latest/pyscript.js"></script> -->
 </head>
 <body>
 <section class="section">
@@ -16,7 +15,9 @@
           <h1 class="title">
             AI text generator
           </h1>
-          <input class="input" id="input" type="text" placeholder="Enter the text and let the magic begin .." maxlength="50"><br>
+          <div class="container" id="if-loading">
+            <input class="input" id="input" type="text" placeholder="Enter the text and let the magic begin .." maxlength="50"><br>
+          </div>
       </div>
     </section>
     <section class="section">

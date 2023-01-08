@@ -1,12 +1,9 @@
 package main
 
 import (
-	// "encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
-
-	// "bytes"
 	"strings"
 	"time"
 )
@@ -15,7 +12,10 @@ const serverPort = ":3250"
 const textGenUrl = "http://127.0.0.1:5001/api/generate"
 
 func apiStatus(w http.ResponseWriter, r *http.Request) {
-	log.Println("Health check - ALIVE")
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "text/plain")
+	w.Write([]byte("Health check - ALIVE"))
+	return
 }
 
 func generateText(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +25,7 @@ func generateText(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	responseString := string(responseData)
-	log.Println("RS: ", responseString)
+	log.Println("Request body: ", responseString)
 
 	resp, err := http.Post(textGenUrl, "text/plain", strings.NewReader(responseString))
 	if err != nil {
@@ -43,32 +43,6 @@ func generateText(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain")
 	w.Write([]byte(sb))
 	return
-
-	// log.Println("2222222")
-
-	// tr := &http.Transport{
-	// 	MaxIdleConns:       10,
-	// 	IdleConnTimeout:    40 * time.Second,
-	// 	DisableCompression: true,
-	// }
-	// client := &http.Client{Transport: tr}
-	// log.Println("3333333")
-
-	// resp, _ := client.Post(textGenUrl, "text/plain", strings.NewReader(text.InputText))
-	// log.Println("44444")
-	// if err != nil {
-	// 	log.Fatalf("An Error Occured %v", err)
-	// 	return
-	// }
-	// log.Println("55555")
-	// // defer resp.Body.Close()
-	// log.Println("66666")
-	// b, err := ioutil.ReadAll(resp.Body)
-	// if err != nil {
-	// 	log.Println("Error: ", err)
-	// }
-	// log.Println("77777")
-	// log.Println("Response: ", string(b))
 }
 
 func main() {
